@@ -1,0 +1,19 @@
+import tensorflow as tf
+
+# Define hyperparameters
+num_layers = 6
+hidden_size = 768
+attention_heads = 12
+
+# Create the model
+model = tf.keras.Sequential([
+    tf.keras.layers.Embedding(vocab_size, hidden_size),
+    tf.keras.layers.TransformerEncoder(num_layers, hidden_size, attention_heads),
+    tf.keras.layers.Dense(vocab_size, activation='softmax')
+])
+
+# Compile the model
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
+
+# Train the model
+model.fit(input_data, target_data, epochs=10)
